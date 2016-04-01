@@ -6,8 +6,8 @@ import argparse
 import MDAnalysis as MDA
 import numpy as np
 
-structDir = '/extra/banzai2/j5wagner/apobec3/infoInfrastructure/1-aligned_structures/'
-alnFile = '/extra/banzai2/j5wagner/apobec3/infoInfrastructure/2-alignment/all_aligned_aydin.fasta'
+structDir = '../1-aligned_structures/'
+alnFile = '..//2-alignment/all_aligned_aydin.fasta'
 
 class HomAlignment:
     def __init__(self):
