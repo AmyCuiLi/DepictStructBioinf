@@ -41,7 +41,7 @@ The subdictionary key-value pairs are used as follows
 Note - Negative indices in "posns" will be ignored, as pymol interprets negative numbers as the end of a range (eg. -27 is interpreted as 0-27)
 
 ### Families.py
-Provides the dictionary "annotations". For example
+Provides the dictionary "families". For example
 ```
 families = {}
 families['all_a3a'] = ['4xxo_A','4xxo_B','2m65_A']
