@@ -1,3 +1,9 @@
+
+PROJECT_CASSETTE_DIR = './project_casette/'
+
+
+import sys
+sys.path.append(PROJECT_CASSETTE_DIR)
 from Bio import AlignIO
 import Bio
 from Families import *
@@ -6,8 +12,10 @@ import argparse
 import MDAnalysis as MDA
 import numpy as np
 
-structDir = '../1-aligned_structures/'
-alnFile = '..//2-alignment/all_aligned_aydin.fasta'
+structDir = './%s/aligned_structures/' %(PROJECT_CASSETTE_DIR)
+alnFile = './%s/SequenceAlignment.fasta' %(PROJECT_CASSETTE_DIR)
+
+
 
 class HomAlignment:
     def __init__(self):
