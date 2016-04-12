@@ -1,5 +1,7 @@
 # DepictStructBioinf
 
+![alt_tag](https://github.com/j-wags/DepictStructBioinf/blob/master/test_region_image.png)
+
 This script aids in the visualization of aggregated structural bioinformatics information. Like a tape player, it's a general framework that can take "project cassettes", containing relevant sequence alignments, 3D structures, and functional annotations. Its main purpose is to help compare functional annotations within families of proteins, thereby enabling researchers to quickly aggregate knowledge, take project-specific notes in a relevant context, and maintain a high level of domain knowledge on multiple systems.
 
 ## Project Cassettes
