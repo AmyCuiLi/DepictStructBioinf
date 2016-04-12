@@ -1,5 +1,5 @@
 
-PROJECT_CASSETTE_DIR = './project_casette/'
+PROJECT_CASSETTE_DIR = './project_cassette/'
 
 
 import sys
@@ -156,10 +156,32 @@ class PymolScriptWriter:
         self.structPaNames = {}
         self.distNames = []
         self.GT = GeoTools()
+        # Record the number of annotations already on each structure, to ensure each annotation is a different color
+        self.structAnnCounter = {}
+        # A dictionary of unique coloring schemes
+        self.colorSchemes = {1:'5',
+                             2:'6',
+                             3:'9',
+                             4:'144',
+                             5:'11',
+                             6:'13',
+                             7:'33',
+                             8:'154',}
+        self.solidColors = {1:'2',
+                            2:'3',
+                            3:'6',
+                            4:'8',
+                            5:'5',
+                            6:'13',
+                            7:'4',
+                            8:'7',
+                            9:'9',
+                            10:'10'}
         
     def loadStruct(self, structName):
         structFilename = structDir + structName + '.pdb'
         self.scriptText += 'load %s \n' %(structFilename)
+        self.structAnnCounter[structName] = 0
 
     def getNewPANameForStruct(self, structName):
         ## Get an unused pseudoatom name for this structure. 
@@ -191,8 +213,15 @@ class PymolScriptWriter:
             #    raise Exception('Pseudoatom numbering reached 100 without finding unused atom name.')
 
 
+    def addAnn(self, fosterAnn, addAnnLines=True, addAnnObj=True):
+        parStruct = fosterAnn['parentStruct']
+        self.structAnnCounter[parStruct] = self.structAnnCounter.get(parStruct,0) + 1
+        if addAnnLines:
+            self.addAnnLines(fosterAnn)
+        if addAnnObj:
+            self.addAnnObj(fosterAnn)
                 
-    def addAnn(self,fosterAnn):
+    def addAnnLines(self,fosterAnn):
         structName = fosterAnn['parentStruct']
         #seqOffset = self.GT.getStartResFromStructName(structName)
         seqPos2ResNum = self.GT.getSeqPos2ResNum(structName)
@@ -205,11 +234,14 @@ class PymolScriptWriter:
                                         fosterAnn['labelLoc'][1],
                                         fosterAnn['labelLoc'][2])
         labelText = fosterAnn['label']
+
+        # Create lines object to annotation in foster parent structure
         paName = self.getNewPANameForStruct(structName)
         self.scriptText += 'pseudoatom %s, pos=%s, label=%s, name=%s \n' %(annStructName,
                                                                            geoCenterStr,
                                                                            labelText,
                                                                            paName)
+
         for posn in fosterAnn['posns']:
             if seqPos2ResNum[posn] < 0:
                 continue
@@ -222,6 +254,24 @@ class PymolScriptWriter:
                                                                           structName,
                                                                           seqPos2ResNum[posn])
             self.scriptText += 'hide labels, %s\n' %(distName)
+            
+    def addAnnObj(self,fosterAnn):
+        # Create new object of homologous residues
+        seqPos2ResNum = self.GT.getSeqPos2ResNum(structName)
+        surfObjName = fosterAnn['parentStruct']+'_'+fosterAnn['title']
+        resnumsStr = '+'.join([str(seqPos2ResNum[i]) for i in fosterAnn['posns']])
+        self.scriptText += 'cmd.create("%s", "/%s///`%s")\n' %(surfObjName,
+                                                               fosterAnn['parentStruct'],
+                                                               resnumsStr)
+        #self.scriptText += 'cmd.show("surface","%s")\n' %(surfObjName)
+        self.scriptText += 'cmd.show("mesh","%s")\n' %(surfObjName)
+        ## Color by atom name
+        #colorScheme = self.colorSchemes[self.structAnnCounter[fosterAnn['parentStruct']]]
+        #self.scriptText += 'util.cba(%s,"%s")\n' %(colorScheme,surfObjName)
+
+        ## Color in solid color
+        solidColor = self.solidColors[self.structAnnCounter[fosterAnn['parentStruct']]]
+        self.scriptText += 'cmd.color(%s,"%s")\n' %(solidColor,surfObjName)
                                          
     def finalize(self):
         #self.scriptText += "cmd.bg_color('white')\n"
@@ -244,26 +294,23 @@ def checkFosterAnn(fosterAnn):
     parentStructFile = structDir + fosterAnn['parentStruct'] + '.pdb'
     U = MDA.Universe(parentStructFile)
 
-    #seqPos2ResNum = GT.getSeqPos2ResNum(fosterAnn['parentStruct'])
     seqPos2ResNum = GT.getSeqPos2ResNumFromU(U)
-    #resNum2SeqPos = dict([(seqPos2ResNum[i], i) for i in seqPos2ResNum.keys()])
-    #seqPos2ResLet = GT.getSeqPos2ResLet(fosterAnn['parentStruct'])
     seqPos2ResLet = GT.getSeqPos2ResLetFromU(U)
-    #print resNum2SeqPos
     for checkAAPos, checkAALet in zip(fosterAnn['posns'],fosterAnn['checkAA']):
-        #pdbSeqPos = seqPos2ResNum[checkAAPos]
         pdbResLet = seqPos2ResLet[checkAAPos]
         print 'checkAAPos:',checkAAPos, 'checkAALet:', checkAALet, 'pdbResLet:', pdbResLet
-        #print 'checkAAPos, pdbSeqPos', checkAAPos, pdbSeqPos
     
     # Ensure that this matches up with alignment-based sequence
-            
+    
+        
 if __name__=='__main__':
 
     allStructures = []
     for structureList in families.values():
         allStructures += structureList
-
+    # Some may be repeated - Filter to get uniques
+    allStructures = list(set(allStructures))
+    
     parser = argparse.ArgumentParser()
     parser.add_argument('-s',
                         nargs = '*',
@@ -312,6 +359,7 @@ if __name__=='__main__':
         for atl in annotationsToLoad:
             origAnn = annotations[atl]
             fosterAnn = homA.translateAnnotation(origAnn, stl)
+            fosterAnn['title'] = atl
             # Check if none of the annotation residues map onto this structure
             if fosterAnn is None:
                 continue
@@ -328,13 +376,14 @@ if __name__=='__main__':
             fosterAnns.append(fosterAnn)
             
     
-    ## Send structure loading and annotation info to pymolWriter to 
+    ## Send structure loading and annotation info to pymolWriter 
     myPSW = PymolScriptWriter()
     for structName in structuresToLoad:
         myPSW.loadStruct(structName)
         for fosterAnn in fosterAnns:
             if fosterAnn['parentStruct'] == structName:
                 myPSW.addAnn(fosterAnn)
+                                                              
     myPSW.finalize()
     myPSW.write('example.pml')
 
