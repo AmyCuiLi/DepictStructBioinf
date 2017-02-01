@@ -5,7 +5,7 @@ PROJECT_CASSETTE_DIR = './project_cassette/'
 import sys
 sys.path.append(PROJECT_CASSETTE_DIR)
 from Bio import AlignIO
-import Bio
+import Bio.PDB
 from Families import *
 from Annotations import *
 import argparse
@@ -134,7 +134,8 @@ class GeoTools:
 
 
     def getSeqPos2ResNumFromU(self, U):
-        resnums = U.selectAtoms('protein').residues.resids()
+        #resnums = U.selectAtoms('protein').residues.resids()
+        resnums = U.selectAtoms('protein').residues.resids
         seqPos2ResNum = dict(list(enumerate(resnums)))
         return seqPos2ResNum
 
@@ -146,7 +147,8 @@ class GeoTools:
         return seqPos2ResLet
     
     def getSeqPos2ResLetFromU(self, U):
-        resnames = [Bio.PDB.Polypeptide.three_to_one(i) for i in U.selectAtoms('protein').residues.resnames()]
+        #resnames = [Bio.PDB.Polypeptide.three_to_one(i) for i in U.selectAtoms('protein').residues.resnames()]
+        resnames = [Bio.PDB.Polypeptide.three_to_one(i) for i in U.selectAtoms('protein').residues.resnames]
         seqPos2ResLet = dict(list(enumerate(resnames)))
         return seqPos2ResLet
         
