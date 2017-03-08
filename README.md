@@ -4,6 +4,18 @@
 
 This script aids in the visualization of aggregated structural bioinformatics information. Like a tape player, it's a general framework that can take "project cassettes", containing relevant sequence alignments, 3D structures, and functional annotations. Its main purpose is to help compare functional annotations within families of proteins, thereby enabling researchers to quickly aggregate knowledge, take project-specific notes in a relevant context, and maintain a high level of domain knowledge on multiple systems.
 
+## Quick start (for Mac/Linux)
+
+Ensure [Pymol](https://sourceforge.net/projects/pymol/) and [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) are installed on your system, then in a terminal, run:
+
+```
+git clone https://github.com/j-wags/DepictStructBioinf.git
+pip install biopython numpy mdanalysis
+cd DepictStructBioinf
+python depict.py -sf all_a3b_ctd
+```
+Depending on your system, the "pip" command may require a "sudo" at the beginning of the line.
+
 ## Project Cassettes
 A "project cassette" is a directory containing:
 
