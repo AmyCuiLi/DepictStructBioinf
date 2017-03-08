@@ -11,6 +11,8 @@ from Annotations import *
 import argparse
 import MDAnalysis as MDA
 import numpy as np
+import os
+
 
 structDir = './%s/aligned_structures/' %(PROJECT_CASSETTE_DIR)
 alnFile = './%s/SequenceAlignment.fasta' %(PROJECT_CASSETTE_DIR)
@@ -333,18 +335,21 @@ if __name__=='__main__':
     annotationsToLoad = []
     ## Process single structure arguments
     for sarg in args.s:
+        sarg = sarg.replace(',','')
         if not(sarg in allStructures):
             raise Exception('%s is not a known structure' %(sarg))
         structuresToLoad.append(sarg)
 
     ## Process structure family arguments
     for sfarg in args.sf:
+        sfarg = sfarg.replace(',','')
         if not(sfarg in families.keys()):
             raise Exception('%s is not a known structure family' %(sfarg))
         structuresToLoad += families[sfarg]
 
     ## Process annotations
     for ann in args.a:
+        ann = ann.replace(',','')
         if not(ann in annotations.keys()):
             raise Exception('%s is not a known annotation' %(ann))
         annotationsToLoad.append(ann)
@@ -387,8 +392,9 @@ if __name__=='__main__':
                 myPSW.addAnn(fosterAnn)
                                                               
     myPSW.finalize()
-    myPSW.write('example.pml')
+    myPSW.write('visualize.pml')
 
+    os.system('pymol  visualize.pml ')
     
 '''
 dep = Depict()
