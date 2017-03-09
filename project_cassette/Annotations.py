@@ -102,6 +102,8 @@ annotations['aydin_rna_interact_a3c'] = {'parent':'a3c',
                                          'help':'Aydin: A large pocket within A3G-NTD was identified as both a RNA binding and oligomerization site (Huthoff et al., 2009). Mutations to critical residues forming this pocket in both the A3G-NTD (R24, R30, H65, W94, C97, Y124, and W127) (Figure 6) and A3C (R122) resulted in reduced packaging and impaired antiviral activity due to inefficient RNA binding (Belanger et al., 2013, Bulliard et al., 2009, Friew et al., 2009, Huthoff et al., 2009 and Stauch et al., 2009). With the exception of R24 and W127, these residues are conserved in all A3 domains, indicating that a common RNA binding site might be conserved across A3 proteins.',
                                          'checkAA':'R'}
 
+
+
 annotations['test1'] = {'parent':'a3a',
                        'label':'Test Region',
                        'posns':[9,10,11,12,13,14,15],
@@ -127,6 +129,13 @@ annotations['trp_by_catalytic_site'] = {'parent':'a3g_ctd',
                                         'posns':[i-197 for i in [285]],
                                         'checkAA':'W',
                                         'help':'Trp near the catalytic site. Mainly used for check correctness of sequence alignments.'
+                                  }
+
+annotations['asp_314_in_a3b_ctd'] = {'parent':'a3b_ctd',
+                                     'label':'Asp314 in A3Bctd',
+                                     'posns':[i-192 for i in [314]],
+                                     'checkAA':'D',
+                                     'help':'Aspartate which has been shown to be important for -1 base specificity.'
                                   }
 
 

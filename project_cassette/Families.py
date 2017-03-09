@@ -21,7 +21,8 @@ families['apobec2'] = ['2nyt_A','2nyt_B','2nyt_C','2nyt_D']
 
 families['dna_bound'] = ['5sww_AE','5sww_BF','5sww_CG','5sww_DH','5td5_AC','5k83_AH','5k83_CI','5k83_EJ']
 
-families['all'] = families['z1'] + families['z2'] + families['z3'] + families['aid'] + families['apobec2']
+families['all_a3'] = families['z1'] + families['z2'] + families['z3']
+families['all'] = families['all_a3'] + families['aid'] + families['apobec2']
 
 ## FAMILIES TO ADD
 # vif_binding

@@ -366,10 +366,10 @@ if __name__=='__main__':
         for atl in annotationsToLoad:
             origAnn = annotations[atl]
             fosterAnn = homA.translateAnnotation(origAnn, stl)
-            fosterAnn['title'] = atl
             # Check if none of the annotation residues map onto this structure
             if fosterAnn is None:
                 continue
+            fosterAnn['title'] = atl
             checkFosterAnn(fosterAnn)
             ## Calculate label xyz positions
             geoCenter = GT.getGeoCenter(fosterAnn)
