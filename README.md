@@ -12,7 +12,8 @@ Ensure [Pymol](https://sourceforge.net/projects/pymol/) and [Git](https://git-sc
 git clone https://github.com/j-wags/DepictStructBioinf.git
 pip install biopython numpy mdanalysis
 cd DepictStructBioinf
-python depict.py -sf all_a3b_ctd
+python depict.py -sf a3b_ctd
+pymol visualize.pml
 ```
 Depending on your system, the "pip" command may require a "sudo" at the beginning of the line.
 
