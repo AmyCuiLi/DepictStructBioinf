@@ -394,7 +394,7 @@ if __name__=='__main__':
     myPSW.finalize()
     myPSW.write('visualize.pml')
 
-    os.system('pymol  visualize.pml ')
+    #os.system('pymol  visualize.pml ')
     
 '''
 dep = Depict()

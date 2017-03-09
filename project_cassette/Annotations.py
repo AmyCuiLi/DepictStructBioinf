@@ -114,6 +114,23 @@ annotations['test2'] = {'parent':'a3g_ctd',
                        'checkAA':'KKKK',
                        'help':'Another arbitrary region, this time in the A3G C terminal domain'
                        }
+
+
+annotations['zn_coordinating'] = {'parent':'a3g_ctd',
+                                  'label':'Zinc-coordinating amino acids',
+                                  'posns':[i-197 for i in [288,257,291]],
+                                  'checkAA':'HCC',
+                                  'help':'Zinc-coordinating amino acids. Mainly used for check correctness of sequence alignments.'
+                                  }
+annotations['trp_by_catalytic_site'] = {'parent':'a3g_ctd',
+                                        'label':'Tryptophan by catalytic pocket',
+                                        'posns':[i-197 for i in [285]],
+                                        'checkAA':'W',
+                                        'help':'Trp near the catalytic site. Mainly used for check correctness of sequence alignments.'
+                                  }
+
+
+
 # Template
 '''
 annotations[''] = {'parent':'',
