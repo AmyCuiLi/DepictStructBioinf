@@ -20,7 +20,7 @@ Depending on your system, the "pip" command may require a "sudo" at the beginnin
 Mac notes:
 * The pip-affiliated python may be in ```/usr/local/bin/python``` instead of ```/usr/bin/python```
 * The Pymol executable may be called "MacPyMol" on the command line (instead of just "pymol")
-* I've received reports that biopython and mdanalysis installations are giving errors on some platforms. I don't yet have a machine that can reproduce these errors.
+* I've received reports that biopython and mdanalysis installations are giving errors on some platforms. I don't yet have a machine that can reproduce these errors. Creation of a virtualenv/miniconda may be a reasonable interim solution.
 
 ## Project Cassettes
 A "project cassette" is a directory containing:
