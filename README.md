@@ -15,12 +15,14 @@ cd DepictStructBioinf
 python depict.py -sf a3b_ctd
 pymol visualize.pml
 ```
+To see all annotations and structure families that can be loaded, run ```python depict.py -h```
+
 Depending on your system, the "pip" command may require a "sudo" at the beginning of the line. 
 
 Mac notes:
 * The pip-affiliated python may be in ```/usr/local/bin/python``` instead of ```/usr/bin/python```
-* The Pymol executable may be called "MacPyMol" on the command line (instead of just "pymol")
-* I've received reports that biopython and mdanalysis installations are giving errors on some platforms. I don't yet have a machine that can reproduce these errors. Creation of a virtualenv/miniconda may be a reasonable interim solution.
+* The Pymol executable may be called "MacPyMol" on the command line (instead of just "pymol"). An alternative way to open the visualize.pml file is by navigating to the DepictStructBioinf folder and double clicking.
+* I've received reports that biopython and mdanalysis installations are giving errors on some platforms. I don't yet have a machine that can reproduce these errors. Creation of a virtualenv/miniconda may be an interim solution.
 
 ## Project Cassettes
 A "project cassette" is a directory containing:
