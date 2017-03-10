@@ -2,7 +2,7 @@
 
 ![alt_tag](https://github.com/j-wags/DepictStructBioinf/blob/master/test_region_image.png)
 
-This script makes it easier to perform comparisons and record functional annotations within a family of proteins/domains. It is intended to allow researchers to quickly aggregate knowledge, record findings in a structural format, and compare hypotheses. By default, this package comes loaded with information about the APOBEC3 family of proteins. 
+DepictStructBioinf allows researchers of a common protein domain to quickly aggregate knowledge, record findings in a relevant format, and compare hypotheses. By default, this package comes loaded with information about the APOBEC3 family of proteins. 
 
 ## Quick start (for Mac/Linux)
 
