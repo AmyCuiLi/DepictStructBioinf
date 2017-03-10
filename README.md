@@ -15,7 +15,12 @@ cd DepictStructBioinf
 python depict.py -sf a3b_ctd
 pymol visualize.pml
 ```
-Depending on your system, the "pip" command may require a "sudo" at the beginning of the line.
+Depending on your system, the "pip" command may require a "sudo" at the beginning of the line. 
+
+Mac notes:
+* The pip-affiliated python may be in ```/usr/local/bin/python``` instead of ```/usr/bin/python```
+* The Pymol executable may be called "MacPyMol" on the command line (instead of just "pymol")
+* I've received reports that biopython and mdanalysis installations are giving errors on some platforms. I don't yet have a machine that can reproduce these errors.
 
 ## Project Cassettes
 A "project cassette" is a directory containing:
