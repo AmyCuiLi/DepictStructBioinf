@@ -1,6 +1,6 @@
 # DepictStructBioinf
 
-![alt_tag](https://github.com/j-wags/DepictStructBioinf/blob/master/test_region_image.png)
+![alt_tag](https://github.com/j-wags/DepictStructBioinf/blob/master/314_homology_image.png)
 
 DepictStructBioinf allows researchers of a common protein domain to quickly aggregate knowledge, record findings in a relevant format, and compare hypotheses. By default, this package comes loaded with information about the APOBEC3 family of proteins. 
 
