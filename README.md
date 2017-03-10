@@ -2,7 +2,7 @@
 
 ![alt_tag](https://github.com/j-wags/DepictStructBioinf/blob/master/test_region_image.png)
 
-This script makes it easier to perform comparisons and record functional annotations within the APOBEC family of proteins. It is intended to allow researchers to quickly aggregate knowledge, record findings in a structural format, and compare hypotheses.
+This script makes it easier to perform comparisons and record functional annotations within a family of proteins/domains. It is intended to allow researchers to quickly aggregate knowledge, record findings in a structural format, and compare hypotheses. By default, this package comes loaded with information about the APOBEC3 family of proteins. 
 
 ## Quick start (for Mac/Linux)
 
@@ -18,7 +18,7 @@ pymol visualize.pml
 Depending on your system, the "pip" command may require a "sudo" at the beginning of the line.
 
 ## Project Cassettes
-By default, DepictStructBioinf is loaded with a project cassette about the APOBEC3 family. A "project cassette" is a directory containing:
+A "project cassette" is a directory containing:
 
 ### aligned_structures
 A directory containing all relevant protein structures to this project. Pymol will load structures directly from here, so be sure that any cleaning/3D alignment is already performed before the structures get here. For multi-chain proteins, I recommend splitting the chains into separate files and using a naming scheme like 3o02_A and 3o02_B
