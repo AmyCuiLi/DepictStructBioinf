@@ -2,7 +2,7 @@
 
 ![alt_tag](https://github.com/j-wags/DepictStructBioinf/blob/master/test_region_image.png)
 
-This script aids in the visualization of aggregated structural bioinformatics information. Like a tape player, it's a general framework that can take "project cassettes", containing relevant sequence alignments, 3D structures, and functional annotations. Its main purpose is to help compare functional annotations within families of proteins, thereby enabling researchers to quickly aggregate knowledge, take project-specific notes in a relevant context, and maintain a high level of domain knowledge on multiple systems.
+This script makes it easier to perform comparisons and record functional annotations within the APOBEC family of proteins. It is intended to allow researchers to quickly aggregate knowledge, record findings in a structural format, and compare hypotheses.
 
 ## Quick start (for Mac/Linux)
 
@@ -18,53 +18,57 @@ pymol visualize.pml
 Depending on your system, the "pip" command may require a "sudo" at the beginning of the line.
 
 ## Project Cassettes
-A "project cassette" is a directory containing:
+By default, DepictStructBioinf is loaded with a project cassette about the APOBEC3 family. A "project cassette" is a directory containing:
 
 ### aligned_structures
 A directory containing all relevant protein structures to this project. Pymol will load structures directly from here, so be sure that any cleaning/3D alignment is already performed before the structures get here. For multi-chain proteins, I recommend splitting the chains into separate files and using a naming scheme like 3o02_A and 3o02_B
 
 ### Annotations.py
-Provides the dictionary "annotations". For example
+Provides the dictionary "annotations". The core of each annotation is a text label, parent sequence (eg. a3b_ctd), and list of sequence positions. For example
 
 ```
 annotations = {}
-annotations['test1'] = {'parent':'a3a',
-                       'label':'Test Region',
-                       'posns':[9,10,11,12,13,14,15],
-                       'checkAA':'RHLMDPH',
-                       'help':'An arbitrary region of the human A3A sequence.'
-                       }
-annotations['test2'] = {'parent':'a3b_ntd',
-                       'label':'Another Test Region',
-                       'posns':[0,1,2,3,4,5],
-                       'checkAA':'MNPQIR',
-                       'help':'Another arbitrary region, this time in the A3B N terminal domain'
-                       }
+annotations['asp_314_in_a3b_ctd'] = {'parent':'a3b_ctd',
+                                     'label':'Asp314 in A3Bctd',
+                                     'posns':[i-192 for i in [314]], 
+                                     'checkAA':'D',
+                                     'help':'Aspartate which has been shown to be important for -1 base specificity.'
+                                  }
 
-...
+
+annotations['zn_coordinating'] = {'parent':'a3g_ctd',
+                                  'label':'Zinc-coordinating amino acids',
+                                  'posns':[i-197 for i in [288,257,291]],
+                                  'checkAA':'HCC',
+                                  'help':'Zinc-coordinating amino acids. '
+                                  }
 ```
 
-The keys in this dictionary (ie. test1) are the names that will be presented to the user as annotation options in the help message.
-The subdictionary key-value pairs are used as follows
+The keys in this dictionary (ie. test1) are the names that will be presented to the user as annotation options when they type ```python depict.py -h```.
+
+The key-value pairs in the annotation dictionary are formatted as follows
 
 - **parent**: The name of a sequence in the sequence alignment that this annotation belongs to.
 - **label**: The label that will appear as floating text in the pymol visualization.
-- **posns**: The sequence position(s) that this annotation refers to. Note: Indexing begins at 0, and ignores gaps.
+- **posns**: The sequence position(s) that this annotation refers to. Note: Indexing begins at 0, is for each domain (not the entire protein!) and ignores gaps.
 - **checkAA**: The single-letter amino acid codes that SHOULD line up to your sequence. Used for internal checking (**TODO: implement this as a regular test**).
 - **help (optional)**: A help message for other users. This currently isn't used by the program.
 
-Note - Negative indices in "posns" will be ignored, as pymol interprets negative numbers as the end of a range (eg. -27 is interpreted as 0-27)
+Note - Negative indices in "posns" will be ignored, as pymol interprets negative numbers as the end of a range (eg. -27 is interpreted as 0-27). 
+
+
 
 ### Families.py
-Provides the dictionary "families". For example
+Provides the dictionary "families". Structure families can be helpful if you want to quickly load groups of proteins with common characteristics. For example
 ```
 families = {}
-families['all_a3a'] = ['4xxo_A','4xxo_B','2m65_A']
-...
+families['a3a'] = ['4xxo_A','4xxo_B','2m65_A','5sww_AE','5sww_BF','5sww_CG','5sww_DH','5td5_AC']
+families['dna_bound'] = ['5sww_AE','5sww_BF','5sww_CG','5sww_DH','5td5_AC','5k83_AH','5k83_CI','5k83_EJ']
+
 ```
 
 
-The keys in this dictionary (ie. all_a3a) are presented to the user as choices for loading and annotating in the pymol script. Structure families can be helpful if you want to quickly load groups of proteins with common characteristics.
+The keys in this dictionary (ie. a3a) are presented to the user as choices under the "-sf" argument when the user runs "python depict.py -h".
 
 
 ### SequenceAlignment.fasta
