@@ -1,7 +1,7 @@
 families = {}
-families['a3a'] = ['4xxo_A','4xxo_B','2m65_A','5sww_AE','5sww_BF','5sww_CG','5sww_DH','5td5_AC']
+families['a3a'] = ['4xxo_A','4xxo_B','2m65_A','5sww_AE','5sww_BF','5sww_CG','5sww_DH']
 families['a3b_ntd'] = ['hom_a3b_ntd_shiv']
-families['a3b_ctd'] = ['5cqd_A','5cqh_A','5cqi_A','5cqk_A','5cqd_C','hom_a3b_ctd_shiv','2nbq_A']
+families['a3b_ctd'] = ['5cqd_A','5cqh_A','5cqi_A','5cqk_A','5cqd_C','hom_a3b_ctd_shiv','2nbq_A','5td5_AC']
 families['a3c'] = ['3vm8_A','3vm8_B','3vow_A','3vow_B']
 families['a3d_ntd'] = ['hom_a3d_ntd_shiv']
 families['a3d_ctd'] = ['hom_a3d_ctd_shiv']
